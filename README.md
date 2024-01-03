@@ -77,7 +77,7 @@ Please see the core dependencies and installation steps below:
 
 
     
-<p align="right">(<a href="#readme-top">:top:</a>)</p>
+<p align="right"><a href="#readme-top">:top:</a></p>
 
 
 
