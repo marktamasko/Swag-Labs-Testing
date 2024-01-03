@@ -26,5 +26,4 @@ replay_pid*
 
 /.idea/
 /target/
-/src/test/java/logmyphone/autotest/Register/resources/
-/src/test/java/logmyphone/autotest/Login/resources/
+/src/test/resources/
