@@ -12,14 +12,17 @@ import java.util.NoSuchElementException;
 
 public class ProductDetails {
     private WebDriver driver;
-    @FindBy(className = "inventory_details_name")
+    //TODO correct locators of ProductDetails POM
+    @FindBy(xpath = "//div[@class='inventory_details_name large_size']")
     private WebElement itemName;
-    @FindBy(className = "inventory_details_desc")
+    @FindBy(xpath = "//div[@class='inventory_details_desc large_size']")
     private WebElement itemDescription;
     @FindBy(className = "inventory_details_price")
     private WebElement itemPrice;
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     private WebElement addToCartButton;
+    @FindBy(id = "back-to-products")
+    private WebElement backButton;
 
     public ProductDetails(WebDriver driver) {
         this.driver = driver;
@@ -46,5 +49,9 @@ public class ProductDetails {
     public String getButtonText() {
         useFluentWait(addToCartButton);
         return addToCartButton.getText();
+    }
+    public void clickBackButton() {
+        useFluentWait(backButton);
+        backButton.click();
     }
 }
