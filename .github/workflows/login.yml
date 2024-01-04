@@ -1,0 +1,49 @@
+name: Successfully login
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Set up ChromeDriver
+        run: |
+          CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1)
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          curl -O "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
+          rm chromedriver_linux64.zip
+
+      - name: Build with Maven
+        run: mvn -B clean verify
+
+      - name: Run Selenium Tests for Standard_User
+        run: mvn -B test -Dusername=${{ secrets.STANDARD_USERNAME }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+
+      - name: Run Selenium Tests for Problem_User
+        run: mvn -B test -Dusername=${{ secrets.PROBLEM_USER }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+
+      - name: Run Selenium Tests for Glitch_User
+        run: mvn -B test -Dusername=${{ secrets.GLITCH_USER }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+
+      - name: Run Selenium Tests for Error_User
+        run: mvn -B test -Dusername=${{ secrets.ERROR_USER }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+
+      - name: Run Selenium Tests for Visual_User
+        run: mvn -B test -Dusername=${{ secrets.VISUAL_USER }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+

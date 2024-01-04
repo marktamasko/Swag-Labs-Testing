@@ -37,10 +37,11 @@ class LoginTest {
         driver.quit();
     }
 
-    @ParameterizedTest
-    @CsvFileSource(files = "src/test/resources/LegitUsers.csv", numLinesToSkip = 1)
-    void test_successfullyLogin(String username, String password) {
-        login.clickLoginButton(username, password);
+    @Test
+    void test_successfullyLogin() {
+        String secretUser = System.getProperty("username", "defaultUsername");
+        String secretPassword = System.getProperty("password", "defaultPassword");
+        login.clickLoginButton(secretUser, secretPassword);
         products.pressMenuButton();
         boolean actual = products.checkVisibilityOfMenuButton();
         assertTrue(actual);
