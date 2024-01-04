@@ -26,21 +26,23 @@ class UnsuccessfullyLoginTest {
         driver.close();
     }
 
-    @ParameterizedTest
-    @CsvFileSource(files = "src/test/resources/WrongUsers.csv", numLinesToSkip = 1)
-    void test_notExistUsersLogin(String username, String password) {
+    @Test
+    void test_notExistUsersLogin() {
         String expected = "Epic sadface: Username and password do not match any user in this service";
-        login.clickLoginButton(username, password);
+        String secretUser = System.getProperty("username", "defaultUsername");
+        String secretPassword = System.getProperty("password", "defaultPassword");
+        login.clickLoginButton(secretUser, secretPassword);
         String actual = login.getErrorMessage();
         assertEquals(expected, actual);
         login.clearLoginField();
     }
 
-    @ParameterizedTest
-    @CsvFileSource(files = "src/test/resources/LockedUser.csv", numLinesToSkip = 1)
-    void test_lockedUserLogin(String username, String password) {
+    @Test
+    void test_lockedUserLogin() {
         String expected = "Epic sadface: Sorry, this user has been locked out.";
-        login.clickLoginButton(username, password);
+        String secretUser = System.getProperty("username", "defaultUsername");
+        String secretPassword = System.getProperty("password", "defaultPassword");
+        login.clickLoginButton(secretUser, secretPassword);
         String actual = login.getErrorMessage();
         assertEquals(expected, actual);
         login.clearLoginField();
