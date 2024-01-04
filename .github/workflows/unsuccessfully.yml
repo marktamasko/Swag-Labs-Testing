@@ -1,0 +1,37 @@
+name: Unsuccessfully login
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+
+      - name: Build with Maven
+        run: mvn -B clean verify
+
+      - name: Run Selenium Tests for Problem_User
+        run: mvn -B test -Dusername=${{ secrets.FAIL_USER }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+
+      - name: Run Selenium Tests for Glitch_User
+        run: mvn -B test -Dusername=${{ secrets.STANDARD_USERNAME }} -Dpassword=${{ secrets.FAIL_PASSWORD }}
+
+      - name: Run Selenium Tests for Standard_User
+        run: mvn -B test -Dusername=${{ secrets.LOCKED_USER }} -Dpassword=${{ secrets.SECRET_PASSWORD }}
+
+
