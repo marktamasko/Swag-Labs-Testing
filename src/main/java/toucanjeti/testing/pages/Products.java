@@ -89,4 +89,12 @@ public class Products {
             return false;
         }
     }
+    public void clickShoppingButton() {
+        useFluentWait(shoppingButton);
+        shoppingButton.click();
+    }
+    public String getShoppingBadgeValue() {
+        useFluentWait(shoppingButtonBadge);
+        return shoppingButtonBadge.getText();
+    }
 }
