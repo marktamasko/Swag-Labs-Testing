@@ -5,8 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class Products {
@@ -49,5 +53,15 @@ public class Products {
     public String clickProductButton(int productNumber) {
         products.get(productNumber).findElement(productButton).click();
         return products.get(productNumber).findElement(productName).getText();
+    }
+    public List<String> selectProduct(int productNumber) {
+        WebElement product = products.get(productNumber);
+        product.findElement(productName).click();
+        return List.of(
+                product.findElement(productName).getText(),
+                product.findElement(productDescription).getText(),
+                product.findElement(productPrice).getText(),
+                product.findElement(productButton).getText()
+        );
     }
 }
