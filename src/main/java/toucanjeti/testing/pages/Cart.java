@@ -7,10 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class Cart {
-    private WebDriver driver;
-
-    private final By cartList = By.className("cart_list");
-    private final By cartItem = By.className("cart_item");
+    private final WebDriver driver;
     private final By nameOfItem = By.className("inventory_item_name");
     private final By checkoutButton = By.id("checkout");
 
