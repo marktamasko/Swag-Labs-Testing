@@ -14,7 +14,7 @@ public class ProductDetailsTest {
     private Products products;
     private ProductDetails productDetails;
     @BeforeAll
-    void setUpAll() {
+    static void setUpAll() {
         driver = new ChromeDriver();
     }
     @BeforeEach
