@@ -70,16 +70,21 @@ public class Products {
         return products.get(productNumber).findElement(productName).getText();
     }
 
-    public List<String> selectProduct(int productNumber) {
+    public List<String> getSelectedItemData(int productNumber) {
         WebElement product = products.get(productNumber);
         useFluentWait(product);
-        product.findElement(productName).click();
-        return List.of(
+        List<String> data = List.of(
                 product.findElement(productName).getText(),
                 product.findElement(productDescription).getText(),
                 product.findElement(productPrice).getText(),
                 product.findElement(productButton).getText()
         );
+        return data;
+    }
+    public void selectItem(int productNumber) {
+        WebElement product = products.get(productNumber);
+        useFluentWait(product);
+        product.findElement(productName).click();
     }
 
     public boolean checkVisibilityOfMenuButton() {
